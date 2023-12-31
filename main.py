@@ -79,6 +79,18 @@ def save():
             web_input.delete(0, END)
             psw_input.delete(0, END)
 
+# ---------------------------- AUTOFILL ------------------------------- #
+
+ def autofill():
+        website = website_entry.get()
+        if website in self.credentials:
+            username_entry.delete(0, tk.END)
+            username_entry.insert(0, self.credentials[website]['username'])
+
+            password_entry.delete(0, tk.END)
+            password_entry.insert(0, self.get_password(website))
+        else:
+            print(f"No credentials found for {website}")
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -111,6 +123,8 @@ search_btn.grid(row=1, column=2)
 generate_psw = Button(text="Generate Password", width=14, command=generate_password)
 generate_psw.grid(row=3, column=2)
 add_btn = Button(text="Add", width=37, command=save)
-add_btn.grid(row=4, column=1, columnspan=2)
+add_btn.grid(row=4, column=1, columnspan=1)
+autofill_btn = Button(text="Autofill", command=autofill)
+autofill_button.grid(row=4, column=2)
 
 window.mainloop()
