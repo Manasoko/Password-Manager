@@ -80,17 +80,19 @@ def save():
             psw_input.delete(0, END)
 
 # ---------------------------- AUTOFILL ------------------------------- #
-
  def autofill():
-        website = website_entry.get()
-        if website in self.credentials:
-            username_entry.delete(0, tk.END)
-            username_entry.insert(0, self.credentials[website]['username'])
-
-            password_entry.delete(0, tk.END)
-            password_entry.insert(0, self.get_password(website))
-        else:
-            print(f"No credentials found for {website}")
+        website = web_input.get()
+         try:
+            with open("C:/Users/lenovo/Desktop/data.json", "r") as data_file:
+                data = json.load(data_file)
+        except FileNotFoundError:
+            messagebox.showwarning(title="Oops", message="Data file is not existing")
+         else:
+            if website in data:
+                password_entry.delete(0, END)
+                password_entry.insert(0, data[website]["password"])
+            else:
+                print(f"No credentials found for {website}")
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
